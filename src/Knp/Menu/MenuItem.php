@@ -631,6 +631,23 @@ class MenuItem implements ItemInterface
     }
 
     /**
+     * Returns the ancestor MenuItem of this menu tree at the specified level
+     *
+     * @param integer $level Level to return ancestor for
+     * @return mixed
+     */
+    public function getAncestor($level)
+    {
+        $currentLevel = $this->getLevel();
+
+        if ($level > $currentLevel) return false;
+
+        if ($level == $currentLevel) return $this;
+
+        return $this->getParent()->getAncestor($level);
+    }
+
+    /**
      * Returns the root MenuItem of this menu tree
      *
      * @return \Knp\Menu\ItemInterface
